@@ -1,5 +1,18 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import "./style.css";
+import "remixicon/fonts/remixicon.css";
 
-createApp(App).mount('#app')
+import { createApp } from "vue";
+import App from "./App.vue";
+import PrimeVue from "primevue/config";
+import Aura from "./presets/Aura";
+import DialogService from "primevue/dialogservice";
+import ToastService from "primevue/toastservice";
+
+createApp(App)
+  .use(PrimeVue, {
+    unstyled: true,
+    pt: Aura,
+  })
+  .use(DialogService)
+  .use(ToastService)
+  .mount("#app");
