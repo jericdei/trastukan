@@ -1,0 +1,42 @@
+name: trastukan
+
+services:
+  backend:
+    container_name: trastukan-backend
+    image: oven/bun:1.1-alpine
+    ports:
+      - 3000
+    volumes:
+      - ./backend:/app
+    working_dir: /app
+    networks:
+      - dei
+      - trastukan
+    command: bun --watch .
+    labels:
+      - traefik.docker.network=dei
+      - traefik.http.services.trastukan-backend.loadbalancer.server.port=3000
+      - traefik.http.routers.trastukan-backend.rule=Host(`api.trastukan.localhost`)
+
+  frontend:
+    container_name: trastukan-frontend
+    image: oven/bun:1.1-alpine
+    ports:
+      - 5173
+    volumes:
+      - ./frontend:/app
+    working_dir: /app
+    networks:
+      - dei
+      - trastukan
+    command: bun dev
+    labels:
+      - traefik.docker.network=dei
+      - traefik.http.services.trastukan-frontend.loadbalancer.server.port=5173
+      - traefik.http.routers.trastukan-frontend.rule=Host(`trastukan.localhost`)
+
+networks:
+  trastukan:
+    driver: bridge
+  dei:
+    external: true
