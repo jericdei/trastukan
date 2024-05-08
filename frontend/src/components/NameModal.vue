@@ -25,7 +25,12 @@ function closeModal() {
 
 <template>
   <div class="flex flex-col gap-8 mt-4">
-    <InputText v-model="dialogRef.data.name" placeholder="ex. budoy" />
+    <InputText
+      v-model="dialogRef.data.name"
+      placeholder="ex. budoy"
+      @keyup.enter="closeModal"
+      autofocus
+    />
 
     <Button label="oks na" @click="closeModal" />
   </div>
