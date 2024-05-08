@@ -42,7 +42,9 @@ onMounted(() => {
       name: user,
     },
     onClose: async () => {
-      socket.value = new WebSocket(`ws://localhost:3000?user=${user.value}`);
+      socket.value = new WebSocket(
+        `ws://api.trastukan.localhost?user=${user.value}`
+      );
 
       socket.value.onmessage = (event) => {
         const data = JSON.parse(event.data);
